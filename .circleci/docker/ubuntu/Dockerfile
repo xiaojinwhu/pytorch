@@ -50,6 +50,12 @@ RUN bash ./install_gcc.sh && rm install_gcc.sh
 ADD ./common/install_lcov.sh install_lcov.sh
 RUN  bash ./install_lcov.sh && rm install_lcov.sh
 
+# Install cuda and cudnn
+ARG CUDA_VERSION
+ADD ./common/install_cuda.sh install_cuda.sh
+RUN bash ./install_cuda.sh ${CUDA_VERSION} && rm install_cuda.sh
+ENV DESIRED_CUDA {CUDA_VERSION}
+
 # (optional) Install protobuf for ONNX
 ARG PROTOBUF
 ADD ./common/install_protobuf.sh install_protobuf.sh
@@ -111,6 +117,7 @@ RUN rm install_ninja.sh
 ADD ./common/install_openssl.sh install_openssl.sh
 RUN bash ./install_openssl.sh
 ENV OPENSSL_ROOT_DIR /opt/openssl
+ENV OPENSSL_DIR /opt/openssl
 
 # Install ccache/sccache (do this last, so we get priority in PATH)
 ADD ./common/install_cache.sh install_cache.sh
