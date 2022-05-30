@@ -1309,7 +1309,7 @@ const auto chebyshev_polynomial_t_string = jiterator_stringify(
     T chebyshev_polynomial_t_forward(T x, T n) {
         return chebyshev_polynomial_t_forward(x, static_cast<int64_t>(n));
     } // chebyshev_polynomial_t_forward(T x, T n)
-);
+); // chebyshev_polynomial_t_string
 
 const auto chebyshev_polynomial_u_string = jiterator_stringify(
     template<typename T>
@@ -1359,7 +1359,7 @@ const auto chebyshev_polynomial_u_string = jiterator_stringify(
     T chebyshev_polynomial_u_forward(T x, T n) {
         return chebyshev_polynomial_u_forward(x, static_cast<int64_t>(n));
     } // chebyshev_polynomial_u_forward(T x, T n)
-);
+); // chebyshev_polynomial_u_string
 
 const auto chebyshev_polynomial_v_string = jiterator_stringify(
     template<typename T>
@@ -1417,7 +1417,7 @@ const auto chebyshev_polynomial_v_string = jiterator_stringify(
     T chebyshev_polynomial_v_forward(T x, T n) {
         return chebyshev_polynomial_v_forward(x, static_cast<int64_t>(n));
     } // chebyshev_polynomial_v_forward(T x, T n)
-);
+); // chebyshev_polynomial_v_string
 
 const auto chebyshev_polynomial_w_string = jiterator_stringify(
     template<typename T>
@@ -1479,7 +1479,7 @@ const auto chebyshev_polynomial_w_string = jiterator_stringify(
     T chebyshev_polynomial_w_forward(T x, T n) {
         return chebyshev_polynomial_w_forward(x, static_cast<int64_t>(n));
     } // chebyshev_polynomial_w_forward(T x, T n)
-);
+); // chebyshev_polynomial_w_string
 
 const auto hermite_polynomial_h_string = jiterator_stringify(
     template<typename T>
@@ -1513,7 +1513,7 @@ const auto hermite_polynomial_h_string = jiterator_stringify(
     T hermite_polynomial_h_forward(T x, T n) {
         return hermite_polynomial_h_forward(x, static_cast<int64_t>(n));
     } // hermite_polynomial_h_forward(T x, T n)
-);
+); // hermite_polynomial_h_string
 
 const auto hermite_polynomial_he_string = jiterator_stringify(
     template<typename T>
@@ -1547,7 +1547,7 @@ const auto hermite_polynomial_he_string = jiterator_stringify(
     T hermite_polynomial_he_forward(T x, T n) {
         return hermite_polynomial_he_forward(x, static_cast<int64_t>(n));
     } // hermite_polynomial_he_forward(T x, T n)
-);
+); // hermite_polynomial_he_string
 
 const auto laguerre_polynomial_l_string = jiterator_stringify(
     template<typename T>
@@ -1585,7 +1585,7 @@ const auto laguerre_polynomial_l_string = jiterator_stringify(
     T laguerre_polynomial_l_forward(T x, T n) {
         return laguerre_polynomial_l_forward(x, static_cast<int64_t>(n));
     } // laguerre_polynomial_l_forward(T x, T n)
-);
+); // laguerre_polynomial_l_string
 
 const auto legendre_polynomial_p_string = jiterator_stringify(
     template<typename T>
@@ -1627,7 +1627,7 @@ const auto legendre_polynomial_p_string = jiterator_stringify(
     T legendre_polynomial_p_forward(T x, T n) {
         return legendre_polynomial_p_forward(x, static_cast<int64_t>(n));
     } // legendre_polynomial_p_forward(T x, T n)
-);
+); // legendre_polynomial_p_string
 
 const auto shifted_chebyshev_polynomial_t_string = jiterator_stringify(
     template<typename T>
@@ -1677,7 +1677,7 @@ const auto shifted_chebyshev_polynomial_t_string = jiterator_stringify(
     T shifted_chebyshev_polynomial_t_forward(T x, T n) {
         return shifted_chebyshev_polynomial_t_forward(x, static_cast<int64_t>(n));
     } // shifted_chebyshev_polynomial_t_forward(T x, T n)
-);
+); // shifted_chebyshev_polynomial_t_string
 
 const auto shifted_chebyshev_polynomial_u_string = jiterator_stringify(
     template<typename T>
@@ -1731,7 +1731,7 @@ const auto shifted_chebyshev_polynomial_u_string = jiterator_stringify(
     T shifted_chebyshev_polynomial_u_forward(T x, T n) {
         return shifted_chebyshev_polynomial_u_forward(x, static_cast<int64_t>(n));
     } // shifted_chebyshev_polynomial_u_forward(T x, T n)
-);
+); // shifted_chebyshev_polynomial_u_string
 
 const auto shifted_chebyshev_polynomial_v_string = jiterator_stringify(
     template<typename T>
@@ -1789,7 +1789,7 @@ const auto shifted_chebyshev_polynomial_v_string = jiterator_stringify(
     T shifted_chebyshev_polynomial_v_forward(T x, T n) {
         return shifted_chebyshev_polynomial_v_forward(x, static_cast<int64_t>(n));
     } // shifted_chebyshev_polynomial_v_forward(T x, T n)
-);
+); // shifted_chebyshev_polynomial_v_string
 
 const auto shifted_chebyshev_polynomial_w_string = jiterator_stringify(
     template<typename T>
@@ -1847,7 +1847,7 @@ const auto shifted_chebyshev_polynomial_w_string = jiterator_stringify(
     T shifted_chebyshev_polynomial_w_forward(T x, T n) {
         return shifted_chebyshev_polynomial_w_forward(x, static_cast<int64_t>(n));
     } // shifted_chebyshev_polynomial_w_forward(T x, T n)
-);
+); // shifted_chebyshev_polynomial_w_string
 
 #else // !AT_USE_JITERATOR() -- kernels must be precompiled
 
