@@ -140,6 +140,12 @@ class DispatchKey(Enum):
 
 
 STRUCTURED_DISPATCH_KEYS = {DispatchKey.CUDA, DispatchKey.CPU}
+COMPOSITE_DISPATCH_KEYS = {
+    DispatchKey.Meta,
+    DispatchKey.CUDA,
+    DispatchKey.CPU,
+    DispatchKey.CompositeExplicitAutograd,
+}
 
 # Set of supported dispatch keys
 dispatch_keys = [
@@ -403,6 +409,16 @@ class NativeFunction:
     # That aren't easily inferrable directly from the operator's schema.
     tags: Set[str]
 
+    # Information needed to generate dispatch-less kernels.
+    #     1. Kernel names (+ overloads) that this NativeFunction depends on. This
+    #        set will be used for generating struct methods for by-passing the
+    #        dispatcher.
+    #
+    #     2. DispatchKeys that the codegen should generate for. There might be
+    #        kernels are composite, but also have a specialized dispatch for CPU
+    #        (or some other backend supported by dispatch-less composites).
+    composite: Tuple[Set["OperatorName"], Set[DispatchKey]]
+
     # NB: The benefit of defining a dataclass is that we automatically get
     # a constructor defined for all the fields we specify.  No need
     # to explicitly write it out.
@@ -511,7 +527,16 @@ class NativeFunction:
                     raise AssertionError(f"illegal tag {t}")
         assert isinstance(tags, set)
 
+        composite_kernels_s = e.pop("composite", None)
+        assert composite_kernels_s is None or isinstance(composite_kernels_s, str)
+        composite_kernels = (
+            set(OperatorName.parse(c.strip()) for c in composite_kernels_s.split(","))
+            if composite_kernels_s is not None
+            else set()
+        )
+
         from torchgen.api import cpp
+        from torchgen.api import dispatchless
 
         raw_dispatch = e.pop("dispatch", None)
         assert raw_dispatch is None or isinstance(raw_dispatch, dict), e
@@ -559,7 +584,11 @@ class NativeFunction:
                 f"but got {dispatch[DispatchKey.CompositeImplicitAutograd]}.  Rename your implementation to the expected "
                 "name, then delete the dispatch table"
             )
-        elif not structured and structured_delegate is None:
+        elif (
+            not structured
+            and structured_delegate is None
+            and len(composite_kernels) == 0
+        ):
             dispatch[DispatchKey.CompositeImplicitAutograd] = BackendMetadata(
                 cpp.name(func), structured=False
             )
@@ -571,6 +600,11 @@ class NativeFunction:
             "cannot specify both CompositeExplicitAutograd and CompositeImplicitAutograd on a single kernel; each "
             "strictly subsumes the other.  If you wanted to provide an explicit autograd "
             "implementation, specify CompositeExplicitAutograd; otherwise specify CompositeImplicitAutograd only"
+        )
+
+        assert not (structured and len(composite_kernels) > 0), (
+            "structured kernels do not support dispatch-less composite kernel calls, yet. "
+            "Since this kernel is already structure, remove the composite listing."
         )
 
         raw_ufunc_inner_loop = e.pop("ufunc_inner_loop", {})
@@ -634,6 +668,23 @@ class NativeFunction:
                     "(it is delegated!)"
                 )
 
+        # build the set of dispatch keys for which we should generate dispatch-less
+        # kernels. Then, create BackendMetadata for each of them, so that their
+        # registration is generated seamlessly.
+        if len(composite_kernels) > 0:
+            composite_dispatch_keys = {
+                k for k in COMPOSITE_DISPATCH_KEYS if k not in dispatch
+            }
+
+            for dispatch_key in composite_dispatch_keys:
+                backend_metadata[dispatch_key] = {
+                    func.name: BackendMetadata(
+                        dispatchless.kernel(func, dispatch_key), structured=False
+                    )
+                }
+        else:
+            composite_dispatch_keys = set()
+
         return (
             NativeFunction(
                 func=func,
@@ -656,6 +707,7 @@ class NativeFunction:
                 has_composite_implicit_autograd_kernel=has_composite_implicit_autograd_kernel,
                 has_composite_explicit_autograd_kernel=has_composite_explicit_autograd_kernel,
                 tags=tags,
+                composite=(composite_kernels, composite_dispatch_keys),
             ),
             backend_metadata,
         )
