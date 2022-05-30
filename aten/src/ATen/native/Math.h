@@ -2216,7 +2216,7 @@ static inline C10_HOST_DEVICE T chebyshev_polynomial_t_forward(T x, int64_t n) {
     return r;
 } // chebyshev_polynomial_t_forward(T x, int64_t n)
 
-template<typename T>
+template<typename T, bool is_cuda=false>
 static inline C10_HOST_DEVICE T chebyshev_polynomial_t_forward(T x, T n) {
     return chebyshev_polynomial_t_forward(x, static_cast<int64_t>(n));
 } // chebyshev_polynomial_t_forward(T x, T n)
@@ -2264,7 +2264,7 @@ static inline C10_HOST_DEVICE T chebyshev_polynomial_u_forward(T x, int64_t n) {
     return r;
 } // chebyshev_polynomial_u_forward(T x, int64_t n)
 
-template<typename T>
+template<typename T, bool is_cuda=false>
 static inline C10_HOST_DEVICE T chebyshev_polynomial_u_forward(T x, T n) {
     return chebyshev_polynomial_u_forward(x, static_cast<int64_t>(n));
 } // chebyshev_polynomial_u_forward(T x, T n)
@@ -2320,7 +2320,7 @@ static inline C10_HOST_DEVICE T chebyshev_polynomial_v_forward(T x, int64_t n) {
     return r;
 } // chebyshev_polynomial_v_forward(T x, int64_t n)
 
-template<typename T>
+template<typename T, bool is_cuda=false>
 static inline C10_HOST_DEVICE T chebyshev_polynomial_v_forward(T x, T n) {
     return chebyshev_polynomial_v_forward(x, static_cast<int64_t>(n));
 } // chebyshev_polynomial_v_forward(T x, T n)
@@ -2380,7 +2380,7 @@ static inline C10_HOST_DEVICE T chebyshev_polynomial_w_forward(T x, int64_t n) {
     return r;
 } // chebyshev_polynomial_w_forward(T x, int64_t n)
 
-template<typename T>
+template<typename T, bool is_cuda=false>
 static inline C10_HOST_DEVICE T chebyshev_polynomial_w_forward(T x, T n) {
     return chebyshev_polynomial_w_forward(x, static_cast<int64_t>(n));
 } // chebyshev_polynomial_w_forward(T x, T n)
@@ -2412,7 +2412,7 @@ static inline C10_HOST_DEVICE T hermite_polynomial_h_forward(T x, int64_t n) {
     return r;
 } // hermite_polynomial_h_forward(T x, int64_t n)
 
-template<typename T>
+template<typename T, bool is_cuda=false>
 static inline C10_HOST_DEVICE T hermite_polynomial_h_forward(T x, T n) {
     return hermite_polynomial_h_forward(x, static_cast<int64_t>(n));
 } // hermite_polynomial_h_forward(T x, T n)
@@ -2444,7 +2444,7 @@ static inline C10_HOST_DEVICE T hermite_polynomial_he_forward(T x, int64_t n) {
     return r;
 } // hermite_polynomial_he_forward(T x, int64_t n)
 
-template<typename T>
+template<typename T, bool is_cuda=false>
 static inline C10_HOST_DEVICE T hermite_polynomial_he_forward(T x, T n) {
     return hermite_polynomial_he_forward(x, static_cast<int64_t>(n));
 } // hermite_polynomial_he_forward(T x, T n)
@@ -2480,7 +2480,7 @@ static inline C10_HOST_DEVICE T laguerre_polynomial_l_forward(T x, int64_t n) {
     return r;
 } // laguerre_polynomial_l_forward(T x, int64_t n)
 
-template<typename T>
+template<typename T, bool is_cuda=false>
 static inline C10_HOST_DEVICE T laguerre_polynomial_l_forward(T x, T n) {
     return laguerre_polynomial_l_forward(x, static_cast<int64_t>(n));
 } // laguerre_polynomial_l_forward(T x, T n)
@@ -2520,7 +2520,7 @@ static inline C10_HOST_DEVICE T legendre_polynomial_p_forward(T x, int64_t n) {
     return r;
 } // legendre_polynomial_p_forward(T x, int64_t n)
 
-template<typename T>
+template<typename T, bool is_cuda=false>
 static inline C10_HOST_DEVICE T legendre_polynomial_p_forward(T x, T n) {
     return legendre_polynomial_p_forward(x, static_cast<int64_t>(n));
 } // legendre_polynomial_p_forward(T x, T n)
@@ -2568,7 +2568,7 @@ static inline C10_HOST_DEVICE T shifted_chebyshev_polynomial_t_forward(T x, int6
     return r;
 } // shifted_chebyshev_polynomial_t_forward(T x, int64_t n)
 
-template<typename T>
+template<typename T, bool is_cuda=false>
 static inline C10_HOST_DEVICE T shifted_chebyshev_polynomial_t_forward(T x, T n) {
     return shifted_chebyshev_polynomial_t_forward(x, static_cast<int64_t>(n));
 } // shifted_chebyshev_polynomial_t_forward(T x, T n)
@@ -2620,7 +2620,7 @@ static inline C10_HOST_DEVICE T shifted_chebyshev_polynomial_u_forward(T x, int6
     return r;
 } // shifted_chebyshev_polynomial_u_forward(T x, int64_t n)
 
-template<typename T>
+template<typename T, bool is_cuda=false>
 static inline C10_HOST_DEVICE T shifted_chebyshev_polynomial_u_forward(T x, T n) {
     return shifted_chebyshev_polynomial_u_forward(x, static_cast<int64_t>(n));
 } // shifted_chebyshev_polynomial_u_forward(T x, T n)
@@ -2676,7 +2676,7 @@ static inline C10_HOST_DEVICE T shifted_chebyshev_polynomial_v_forward(T x, int6
     return r;
 } // shifted_chebyshev_polynomial_v_forward(T x, int64_t n)
 
-template<typename T>
+template<typename T, bool is_cuda=false>
 static inline C10_HOST_DEVICE T shifted_chebyshev_polynomial_v_forward(T x, T n) {
     return shifted_chebyshev_polynomial_v_forward(x, static_cast<int64_t>(n));
 } // shifted_chebyshev_polynomial_v_forward(T x, T n)
@@ -2732,7 +2732,7 @@ static inline C10_HOST_DEVICE T shifted_chebyshev_polynomial_w_forward(T x, int6
     return r;
 } // shifted_chebyshev_polynomial_w_forward(T x, int64_t n)
 
-template<typename T>
+template<typename T, bool is_cuda=false>
 static inline C10_HOST_DEVICE T shifted_chebyshev_polynomial_w_forward(T x, T n) {
     return shifted_chebyshev_polynomial_w_forward(x, static_cast<int64_t>(n));
 } // shifted_chebyshev_polynomial_w_forward(T x, T n)
